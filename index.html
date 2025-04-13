@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>손절 / 익절 계산기</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 40px;
+      background-color: #f4f4f4;
+    }
+    input, button {
+      padding: 10px;
+      font-size: 16px;
+      margin-top: 10px;
+      width: 220px;
+    }
+    #result {
+      margin-top: 20px;
+      font-size: 18px;
+      font-weight: bold;
+      white-space: pre-line;
+    }
+  </style>
+</head>
+<body>
+  <h1>손절 / 익절 계산기</h1>
+  <p>매수 금액과 손절/익절 비율(%)을 입력하세요:</p>
+  <input type="number" id="buyPrice" placeholder="매수 금액 (예: 100000)">
+  <br>
+  <input type="number" id="lossPercent" placeholder="손절 비율 (예: 7)">
+  <br>
+  <input type="number" id="gainPercent" placeholder="익절 비율 (예: 10)">
+  <br>
+  <button onclick="calculate()">계산하기</button>
+  <div id="result"></div>
+
+  <script>
+    function calculate() {
+      const buyPrice = parseFloat(document.getElementById('buyPrice').value);
+      const lossPercent = parseFloat(document.getElementById('lossPercent').value);
+      const gainPercent = parseFloat(document.getElementById('gainPercent').value);
+
+      if (
+        isNaN(buyPrice) || buyPrice <= 0 ||
+        isNaN(lossPercent) || lossPercent < 0 ||
+        isNaN(gainPercent) || gainPercent < 0
+      ) {
+        document.getElementById('result').innerText = '유효한 숫자를 모두 입력해주세요.';
+        return;
+      }
+
+      const lossPrice = buyPrice * (1 - lossPercent / 100);
+      const gainPrice = buyPrice * (1 + gainPercent / 100);
+
+      document.getElementById('result').innerText = 
+        `손절 기준 (-${lossPercent}%): 약 ${lossPrice.toLocaleString()}원\n` +
+        `익절 기준 (+${gainPercent}%): 약 ${gainPrice.toLocaleString()}원`;
+    }
+  </script>
+</body>
+</html>
