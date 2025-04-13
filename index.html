@@ -3,7 +3,17 @@
 <head>
   <meta charset="UTF-8">
   <title>손절 / 익절 계산기</title>
+  <link rel="manifest" href="manifest.json">
   <style>
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('service-worker.js')
+            .then(reg => console.log('Service Worker 등록 성공:', reg))
+            .catch(err => console.error('Service Worker 등록 실패:', err));
+        });
+      }
+    </script>
     body {
       font-family: Arial, sans-serif;
       text-align: center;
