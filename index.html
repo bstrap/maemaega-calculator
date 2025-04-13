@@ -5,15 +5,6 @@
   <title>손절 / 익절 계산기</title>
   <link rel="manifest" href="manifest.json">
   <style>
-    <script>
-      if ('serviceWorker' in navigator) {
-        window.addEventListener('load', () => {
-          navigator.serviceWorker.register('service-worker.js')
-            .then(reg => console.log('Service Worker 등록 성공:', reg))
-            .catch(err => console.error('Service Worker 등록 실패:', err));
-        });
-      }
-    </script>
     body {
       font-family: Arial, sans-serif;
       text-align: center;
@@ -46,6 +37,7 @@
   <button onclick="calculate()">계산하기</button>
   <div id="result"></div>
 
+  <!-- 계산기 기능 스크립트 -->
   <script>
     function calculate() {
       const buyPrice = parseFloat(document.getElementById('buyPrice').value);
@@ -67,6 +59,17 @@
       document.getElementById('result').innerText = 
         `손절 기준 (-${lossPercent}%): 약 ${lossPrice.toLocaleString()}원\n` +
         `익절 기준 (+${gainPercent}%): 약 ${gainPrice.toLocaleString()}원`;
+    }
+  </script>
+
+  <!-- 서비스워커 등록 스크립트 -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('service-worker.js')
+          .then(reg => console.log('Service Worker 등록 성공:', reg))
+          .catch(err => console.error('Service Worker 등록 실패:', err));
+      });
     }
   </script>
 </body>
